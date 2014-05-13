@@ -1,0 +1,8 @@
+DROP TABLE IF EXISTS `%TABLE_PREFIX%758_logbook`;
+DROP TABLE IF EXISTS `%TABLE_PREFIX%758_logbook_project`;
+DROP TABLE IF EXISTS `%TABLE_PREFIX%758_logbook_client`;
+
+
+
+
+
