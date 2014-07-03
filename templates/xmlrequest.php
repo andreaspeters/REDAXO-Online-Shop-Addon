@@ -1,9 +1,15 @@
 <?php
 
-global $REX;
-
-
 $func   = htmlentities(rex_request("func","string",""));
+
+$ispUsername = 'redaxo';
+$ispPassword = 'em6a5#"S>Tqz';
+$soapLocation = 'https://kis.aventer.biz:1443/remote/index.php';
+$soapBilling = 'https://kis.aventer.biz:1443/remote/billing.php';
+$soapUri = 'https://kis.aventer.biz:1443/remote/';
+
+date_default_timezone_set('UTC');
+
 $param = json_decode(stripcslashes(rex_request("param", "string")), true);
 
 switch ($func) {
@@ -19,35 +25,26 @@ switch ($func) {
 
 
 function getProductsList() {
-	global $REX;
-	$sqlRef = new rex_sql();
-	$sqlRef->setQuery(sprintf("select * from %s","rex_onlineshop_products"));
+	$oshop = new OOOnlineShop();
     $res['method'] = "getProductsList";
-	$res['data'] = $sqlRef->getArray();		
+	$res['data'] = $oshop->getProductsList();
 	echo json_encode($res);		
 }
 
 function getDetailOfProduct($param) {
-	global $REX;
-	$productId = htmlentities($param['id']);
-
-	$sqlRef = new rex_sql();
-	$sqlRef->setQuery(sprintf("select * from %s where id = '%d'","rex_onlineshop_products", $productId));
-    
+    $oshop = new OOOnlineShop();
 	$res['method'] = "getDetailOfProduct";
-	$res['data'] = $sqlRef->getArray();		
+	$res['data'] = $oshop->getDetailOfProduct($param);
 	echo json_encode($res);		
 }
 
 function getCouponsList() {
-	global $REX;
-	$sqlRef = new rex_sql();
-	$sqlRef->setQuery(sprintf("select * from %s where type = '2' ","rex_onlineshop_products"));
+    $oshop = new OOOnlineShop();
     $res['method'] = "getCouponsList";
-	$res['data'] = $sqlRef->getArray();		
+	$res['data'] = $oshop->getCouponsList();
 	echo json_encode($res);		
 }
-
+/////// DUMMY
 function setProduct($param) {
 return;
 	global $REX;
@@ -87,6 +84,9 @@ return;
 	echo json_encode($res);		
 }
 
+
+
+///// DUMMY
 function setProductSold($param) {
 return;
 	global $REX;
@@ -119,43 +119,35 @@ return;
 
 
 function getTypeList() {
-	global $REX;
-	$sqlRef = new rex_sql();
-	$sqlRef->setQuery(sprintf("select * from %s","rex_onlineshop_type"));
+    $oshop = new OOOnlineShop();
     $res['method'] = "getTypeList";
-	$res['data'] = $sqlRef->getArray();		
+	$res['data'] = $ooshop->getTypeList();		
 	echo json_encode($res);		
 }
 
 function getDeliveryList() {
-	global $REX;
-	$sqlRef = new rex_sql();
-	$sqlRef->setQuery(sprintf("select * from %s","rex_onlineshop_delivery"));
+    $oshop = new OOOnlineShop();
     $res['method'] = "getDeliveryList";
-	$res['data'] = $sqlRef->getArray();		
+	$res['data'] = $oshop->getDeliveryList();		
 	echo json_encode($res);		
 }
 
 function getCategoryList() {
-	global $REX;
-	$sqlRef = new rex_sql();
-	$sqlRef->setQuery(sprintf("select * from %s","rex_onlineshop_category"));
+    $oshop = new OOOnlineShop();
     $res['method'] = "getCategoryList";
-	$res['data'] = $sqlRef->getArray();		
+	$res['data'] = $oshop->getCategoryList();		
 	echo json_encode($res);		
 }
 
 function getTaxList() {
-	global $REX;
-	$sqlRef = new rex_sql();
-	$sqlRef->setQuery(sprintf("select * from %s","rex_onlineshop_tax"));
+    $oshop = new OOOnlineShop();
     $res['method'] = "getTaxList";
-	$res['data'] = $sqlRef->getArray();		
+	$res['data'] = $oshop->getTaxList();		
 	echo json_encode($res);		
 }
 		
-?>
-		
+
+?>		
 			
 	
 		
