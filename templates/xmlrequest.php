@@ -2,12 +2,6 @@
 
 $func   = htmlentities(rex_request("func","string",""));
 
-$ispUsername = 'redaxo';
-$ispPassword = 'em6a5#"S>Tqz';
-$soapLocation = 'https://kis.aventer.biz:1443/remote/index.php';
-$soapBilling = 'https://kis.aventer.biz:1443/remote/billing.php';
-$soapUri = 'https://kis.aventer.biz:1443/remote/';
-
 date_default_timezone_set('UTC');
 
 $param = json_decode(stripcslashes(rex_request("param", "string")), true);
