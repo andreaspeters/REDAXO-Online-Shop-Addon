@@ -53,11 +53,7 @@ class OOOnlineShop {
 	}
 
 	public function getTaxList() {
-		$this->sqlRef->setQuery(sprintf("select * from %s","rex_onlineshop_tax"));
+		$this->sqlRef->setQuery(sprintf("select * from %s","rex_onlineshop_tao"));
 		return $this->sqlRef->getArray();
 	}
-
-
-
 }
-
