@@ -7,7 +7,7 @@ date_default_timezone_set('UTC');
 $param = json_decode(stripcslashes(rex_request("param", "string")), true);
 
 switch ($func) {
-	case "getProductsList": getProductsList();break;
+	case "getProductsList": getProductsList($param);break;
 	case "getDetailOfProduct": getDetailOfProduct($param);break;
 	case "getCouponsList": getCouponsList();break;
 	case "setProduct": setProduct();break;
@@ -21,7 +21,10 @@ switch ($func) {
 function getProductsList() {
 	$oshop = new OOOnlineShop();
     $res['method'] = "getProductsList";
-	$res['data'] = $oshop->getProductsList();
+	$res['from'] = htmlentities($param['from']);
+	$res['limit'] = htmlentities($param['limit']);
+	$res['cat'] = htmlentities($param['cat']);
+	$res['data'] = $oshop->getProductsList($param);
 	echo json_encode($res);		
 }
 
