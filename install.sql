@@ -1,3 +1,4 @@
+/*
 DELETE FROM `rex_xform_table` where `table_name`='rex_onlineshop_products';
 DELETE FROM `rex_xform_table` where `table_name`='rex_onlineshop_category';
 DELETE FROM `rex_xform_table` where `table_name`='rex_onlineshop_tax';
@@ -45,3 +46,4 @@ INSERT INTO `rex_xform_field` (`table_name`, `prio`, `type_id`, `type_name`, `f1
 INSERT INTO `rex_xform_field` (`table_name`, `prio`, `type_id`, `type_name`, `f1`, `f2`, `f3`, `f4`, `f5`, `f6`, `f7`, `f8`, `f9`, `list_hidden`, `search`) VALUES ('rex_onlineshop_products', 140, 'value', 'select_sql', 'rex_onlineshop_tax', 'translate:tax', 'select id, name from rex_onlineshop_tax', '', '', '', '', '', '', 0, 1);
 INSERT INTO `rex_xform_field` (`table_name`, `prio`, `type_id`, `type_name`, `f1`, `f2`, `f3`, `f4`, `f5`, `f6`, `f7`, `f8`, `f9`, `list_hidden`, `search`) VALUES ('rex_onlineshop_products', 150, 'value', 'select_sql', 'rex_onlineshop_type', 'translate:type', 'select id, name from rex_onlineshop_type', '', '', '', '', '', '', 0, 1);
 INSERT INTO `rex_xform_field` (`table_name`, `prio`, `type_id`, `type_name`, `f1`, `f2`, `f3`, `f4`, `f5`, `f6`, `f7`, `f8`, `f9`, `list_hidden`, `search`) VALUES ('rex_onlineshop_products', 160, 'value', 'select_sql', 'rex_onlineshop_delivery', 'translate:delivery', 'select id, name from rex_onlineshop_delivery', '', '', '', '', '', '', 0, 1);
+*/
