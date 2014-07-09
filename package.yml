@@ -1,0 +1,16 @@
+version: '1.0.0'
+author: 'Tobias Wessels'
+supportpage: www.aventer.biz
+package: onlineshop
+
+page:
+  title: 'translate:onlineshop'
+  perm: onlineshop[]
+  subpages:
+    overview: {title: 'translate:overview'}
+    description: {title: 'translate:description', perm: admin}
+
+requires:
+  addons:
+    xform:
+      min-version: '3.0.4'
