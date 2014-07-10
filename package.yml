@@ -4,7 +4,7 @@ supportpage: www.aventer.biz
 package: onlineshop
 
 page:
-  title: 'translate:onlineshop'
+  title: 'Onlineshop'
   perm: onlineshop[]
   subpages:
     overview: {title: 'translate:overview'}
