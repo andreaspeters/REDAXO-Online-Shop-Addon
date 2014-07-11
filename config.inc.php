@@ -30,6 +30,7 @@ if (isset($I18N) && is_object($I18N))
 
 
 require_once $basedir.'/classes/class.onlineshop.inc.php';
+require_once $basedir.'/classes/class.basket.inc.php';
 
 if ($REX['REDAXO'] && $REX['USER']) {
 

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @author mailbox[at]andreas-peters[dot]net Andreas Peters
  * @author <a href="http://www.andreas-peters.net">www.andreas-peters.net</a>
@@ -7,16 +6,17 @@
  */
 
 class OOOnlineShop {
-  
 	protected $REX, $I18N, $api;
 	public $rexUser, $rexGroups;
 	public $sqlRef;
+	public $basket;
 
 	public function OOOnlineShop () {
 		global $REX;
 		$this->REX = $REX;
 
         $this->sqlRef = new rex_sql();
+		$this->basket = new OOBasket();
 	}
 
 	/*
@@ -53,6 +53,13 @@ class OOOnlineShop {
 		return $this->sqlRef->getArray();		
 	}
 
+	/*
+		Function:		getDetailOfProduct
+		Description:	Get out the detail information of a product id
+		Parameters:		$param = Array of 
+									'id' = The product id
+		Return:			Array with the product details
+	*/
 	public function getDetailOfProduct($param) {
 		$productId = htmlentities($param['id']);
 		$this->sqlRef->setQuery(sprintf("select * from %s where id = '%d'","rex_onlineshop_products", $productId));

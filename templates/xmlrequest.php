@@ -15,6 +15,13 @@ switch ($func) {
 	case "getDeliveryList": getDeliveryList();break;
 	case "getCategoryList": getCategoryList();break;
 	case "getTaxList": getTaxList();break;
+	case "getBasket": getBasket();break;
+	case "addProductToBasket": addProductToBasket($param);break;
+	case "removeProductFromBasket": removeProductFromBasket($param);break;
+	case "getCountOfBasket": getCountOfBasket($param);break;
+	case "incBasketProduct": incBasketProduct($param);break;
+	case "decBasketProduct": devBasketProduct($param);break;
+	case "deleteBasket": deleteBasket();break;
 }
 
 
@@ -142,8 +149,117 @@ function getTaxList() {
 	$res['data'] = $oshop->getTaxList();		
 	echo json_encode($res);		
 }
-		
 
+/*
+	Function:		getBasket
+	Description:	get out all product of the basket
+	Parameters:
+	Return:
+*/
+function getBasket() {
+    $oshop = new OOOnlineShop();
+    $res['method'] = "getBasket";
+	$res['data'] = $oshop->basket->getBasket();		
+	echo json_encode($res);		
+}
+
+/*
+	Function:		addProductToBasket
+	Description:	add a product to the basket
+	Parameters:		$param = Array of
+								'id' = Product Id
+								'count' = How many of the product (optional)
+	Return:
+*/
+function addProductToBasket($param) {
+	// One item of the product should be inside
+	if (!$param['count']) {
+		$param['count'] = 1;
+	}
+
+    $oshop = new OOOnlineShop();
+    $res['method'] = "addProductToBasket";
+	$res['error'] = $oshop->basket->insertProduct($param);
+	echo json_encode($res);		
+}
+
+/*
+	Function:		removeProductFromBasket
+	Description:	remove a product from the basket
+	Parameters:		$param = Array of
+								'id' = Product Id
+	Return:
+*/
+function removeProductFromBasket($param) {
+    $oshop = new OOOnlineShop();
+    $res['method'] = "removeProductFromBasket";
+	$res['error'] = $oshop->basket->deleteProduct($param);
+	echo json_encode($res);		
+}
+		
+/*
+	Function:		getCountOfBasket	
+	Description:	get the count of product in the basket
+	Parameters:		
+	Return:			
+*/
+function getCountOfBasket($param) {
+    $oshop = new OOOnlineShop();
+    $res['method'] = "getCountOfBasket";
+	$res['data'] = $oshop->basket->getCountOfProducts();
+	echo json_encode($res);		
+}
+
+/*
+	Function:		incBasketProduct	
+	Description:	increment the count of a product
+	Parameters:		$param = Array of
+								'id' = Product Id
+	Return:			
+*/
+function incBasketProduct($param) {
+    $oshop = new OOOnlineShop();
+    $res['method'] = "incBasketProduct";
+	$val = $oshop->basket->incProduct();
+	if ($val == -1) {
+		$res['error'] = $val;
+	} else {
+		$res['data'] = $val;
+	}
+	echo json_encode($res);		
+}
+
+/*
+	Function:		decBasketProduct	
+	Description:	decrement the count of a product
+	Parameters:		$param = Array of
+								'id' = Product Id
+	Return:			
+*/
+function decBasketProduct($param) {
+    $oshop = new OOOnlineShop();
+    $res['method'] = "decBasketProduct";
+	$val = $oshop->basket->decProduct();
+	if ($val == -1) {
+		$res['error'] = $val;
+	} else {
+		$res['data'] = $val;
+	}
+	echo json_encode($res);		
+}
+
+/*
+	Function:		deleteBasket	
+	Description:	delete all the basket items
+	Parameters:		
+	Return:			
+*/
+function deleteBasket() {
+    $oshop = new OOOnlineShop();
+    $res['method'] = "deleteBasket";
+	$res['data'] = $oshop->basket->deleteBasket();
+	echo json_encode($res);		
+}
 ?>		
 			
 	
