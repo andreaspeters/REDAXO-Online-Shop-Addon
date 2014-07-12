@@ -89,7 +89,13 @@ class OOOnlineShop {
 	}
 
 	public function getTaxList() {
-		$this->sqlRef->setQuery(sprintf("select * from %s","rex_onlineshop_tao"));
+		$this->sqlRef->setQuery(sprintf("select * from %s","rex_onlineshop_tax"));
 		return $this->sqlRef->getArray();
+	}
+
+	public function getTaxValue($id) {
+		$this->sqlRef->setQuery(sprintf("select * from %s where id = '%d'","rex_onlineshop_tax", $id));
+		$res = $this->sqlRef->getArray();
+		return $res[0]['percent'];
 	}
 }
