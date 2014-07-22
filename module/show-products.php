@@ -18,22 +18,43 @@
 
 */
 <div id="productOverview">
-	<form action="show-products.php" method="get">
+	<form method='get' action="<?php echo $_SERVER['PHP_SELF']; ?>">
 <?php
 	define('DEFAULT_LIMIT',    20);
 	define('DEFAULT_CATEGORY', 1);
 	define('DEFAULT_FROM',     0);
 
-	$oshop = new OOOnlineShop();
-
-	
+	$oshop = new OOOnlineShop();	
 	$param['from']  = $_GET['from']  ?:  constant('DEFAULT_FROM');
 	$param['limit'] = $_GET['limit'] ?:  constant('DEFAULT_LIMIT');
 	$param['cat']   = $_GET['cat']   ?:  constant('DEFAULT_CATEGORY');
 
+
+
+	# Process parameters
+	if($_GET['navButton']) {
+		switch($_GET['navButton']) {
+			case 'Next Page':  
+				$param['from'] += $param['limit']; 
+			break;
+			case 'Previous Page': 
+				$param['from'] -= $param['limit'];
+				if( $param['from'] < 0 ) $param['from']=0;
+			break;
+			default:
+			break;
+		}
+	}
+
+
+
+	# Get Products
 	$products = $oshop.getProductsList($param);
 
 
+
+
+	# Print the result
 	print '<div id="productList">';
 
 	$i=0;
@@ -49,12 +70,12 @@
 	print '</div>';
 
 ?>
+
+
+
 		<div id="buttons">
-			<input type="submit" name="btn[next]" value="Next Page" />
-			<input type="submit" name="btn[prev]" value="Previous Page" />
+			<input type="submit" name="navButton" value="Next Page" />
+			<input type="submit" name="navButton" value="Previous Page" />
 		</div>
-<?php
-	}
-?>
 	</form>
 </div>
