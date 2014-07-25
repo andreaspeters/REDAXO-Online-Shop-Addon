@@ -1,3 +1,4 @@
+<?php
 /*
 	This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -17,13 +18,24 @@
 	EMail:   support [at] aventer [dot] biz
 
 */
+?>
 <div id="basket">
 	<form action="order.php" method="post">
 <?php
 
 	$oshop = new OOOnlineShop();
 
+	$currentArticel = rex_getUrl($this->getValue("article_id"));
+	$func = htmlentities(rex_request("func","string",""));
+	$param = json_decode(stripcslashes(rex_request("param", "string")), true);
+
+	switch($func) {
+		case "removeProductFromBasket": $oshop->basket->deleteProduct($param); break;
+	}
+
+
 	$basket = $oshop->basket->getBasket();
+
 	if ($basket) {
 		$y = 0;
 		foreach ($basket as $i) {
@@ -42,10 +54,11 @@
 			$totalAmountTax    += ($brPrice - $price);
 
 			print '<div id="productItem_'.$y.'">';
-			print '<div id="productName_'.$y.'">'.$product['0']['name'].'</div>';
-			print '<div id="productPrice_'.$y.'">'.$brPrice.'</div>';
-			print '<div id="productTax_'.$y.'">'.$tax.'</div>';
-			print '<div id="productCount_'.$y.'"><input type="number" name="productCount_'.$y.'" min="0" value="'.$i[1].'" max="100"></div>';
+			print '   <div id="productName_'.$y.'">'.$product['0']['name'].'</div>';
+			print '   <div id="productPrice_'.$y.'">'.$brPrice.'</div>';
+			print '   <div id="productTax_'.$y.'">'.$tax.'</div>';
+			print '   <div id="productCount_'.$y.'"><input type="number" name="productCount_'.$y.'" min="0" value="'.$i[1].'" max="100"></div>';
+			print '   <div id="remove_'.$y.'"><a href=\''.$currentArticel.'&func=removeProductFromBasket&param={"id":'.$i[0].'}\'><span icon="removeProduct">X</span></a>';
 			print '</div>';
 			
 

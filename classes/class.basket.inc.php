@@ -45,13 +45,14 @@ class OOBasket {
 		Return:		 	-1 = Error, 0 = Good	
 	*/
     public function deleteProduct($param) {
-		$id    = htmlentities($param['id']);		
+		$id  = htmlentities($param['id']);
 		if (!$id)
 			return -1;
 
         $array = $_SESSION['basket'];
 		$pos = $this->getPosition($id);
-		unset($pos);
+		unset($array[$pos]);
+		$_SESSION['basket'] = $array;
 		return 0;
     }
 
