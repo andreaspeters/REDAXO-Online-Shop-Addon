@@ -42,7 +42,7 @@
 			$param['id'] = $i[0];
 
 			$product = $oshop->getDetailOfProduct($param);
-			$tax = $oshop->getTaxValue($product['rex_onlineshop_tax']);
+			$tax = $oshop->getTaxValue($product[0]['rex_onlineshop_tax']);
 			$price = str_replace(',','.',$product['0']['price']);
 		
 			// Get Brutto price
@@ -55,8 +55,8 @@
 
 			print '<div id="productItem_'.$y.'">';
 			print '   <div id="productName_'.$y.'">'.$product['0']['name'].'</div>';
-			print '   <div id="productPrice_'.$y.'">'.$brPrice.'</div>';
-			print '   <div id="productTax_'.$y.'">'.$tax.'</div>';
+			print '   <div id="productPrice_'.$y.'">'.sprintf("%01.2f", $brPrice).' ###currency###</div>';
+			print '   <div id="productTax_'.$y.'">'.$tax.'%</div>';
 			print '   <div id="productCount_'.$y.'"><input type="number" name="productCount_'.$y.'" min="0" value="'.$i[1].'" max="100"></div>';
 			print '   <div id="remove_'.$y.'"><a href=\''.$currentArticel.'&func=removeProductFromBasket&param={"id":'.$i[0].'}\'><span icon="removeProduct">X</span></a>';
 			print '</div>';
@@ -66,14 +66,13 @@
 		}
 ?>
 		<div id="costs">
-			<div id="totalAmountNetto"><?php echo $totalAmountNetto ?></div>
-			<div id="totalAmountBrutto"><?php echo $totalAmountBrutto ?></div>
-			<div id="totalAmountTax"><?php echo $totalAmountTax ?></div>
+			<div id="totalAmountNetto"><div class="title">###totalamountnetto###</div><div class="value"><?php printf("%01.2f", $totalAmountNetto) ?> ###currency###</div></div>
+			<div id="totalAmountBrutto"><div class="title">###totalamountbrutto###</div><div class="value"><?php printf("%01.2f", $totalAmountBrutto) ?> ###currency###</div></div>
+			<div id="totalAmountTax"><div class="title">###totalamounttax###</div><div class="value"><?php printf("%01.2f", $totalAmountTax) ?> ###currency###</div></div>
 		</div>
 
 		<div id="buttons">
 			<input type="submit" name="btn[order]" value="###zahlungspflichtigbestellen###" />
-			<input type="submit" name="btn[update]" value="###update###" />
 		</div>
 <?php
 	}
