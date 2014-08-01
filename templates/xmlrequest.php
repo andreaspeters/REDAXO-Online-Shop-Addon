@@ -22,6 +22,7 @@ switch ($func) {
 	case "incBasketProduct": incBasketProduct($param);break;
 	case "decBasketProduct": devBasketProduct($param);break;
 	case "deleteBasket": deleteBasket();break;
+	case "getImageByName": getImageByName($param);break;
 }
 
 
@@ -258,6 +259,25 @@ function deleteBasket() {
     $oshop = new OOOnlineShop();
     $res['method'] = "deleteBasket";
 	$res['data'] = $oshop->basket->deleteBasket();
+	echo json_encode($res);		
+}
+
+/*
+	Function:		getImageByName
+	Description:	get out a image from the mediafolder by the name
+	Parameters:		$param = Array of
+                             'name' = Image File Name
+                             'width' = Image width for resizing (optional)
+                             'height' = Image height for resizing (optional)
+	Return:			
+*/
+function getImageByName($param) {
+    $oshop = new OOOnlineShop();
+    $res['method'] = "getImageByName";
+	$res['name'] = htmlentities($param['name']);
+	$res['width'] = htmlentities($param['width']);
+	$res['height'] = htmlentities($param['height']);
+	$res['data'] = $oshop->getImageByName($param);
 	echo json_encode($res);		
 }
 ?>		

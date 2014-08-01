@@ -98,4 +98,33 @@ class OOOnlineShop {
 		$res = $this->sqlRef->getArray();
 		return $res[0]['percent'];
 	}
+
+	/*
+		Function:		getImageByName
+		Description:	Get out the image from the mediapool by the file name
+		Parameters:		$param = Array of
+							'name' = Image File Name
+							'width' = Image width for resizing (optional)
+							'height' = Image height for resizing (optional)
+		Return:			Image as HTML
+	*/
+	public function getImageByName($param) {
+		$imageName = htmlentities($param['name']);
+
+
+		// Without a ImageName, we can do nothing
+		if (!$imageName)
+			return;
+	
+		$imageWidth = htmlentities($param['width']);
+		$imageHeight = htmlentities($param['height']);
+
+		$image = OOMedia::getMediaByFileName($imageName);
+		if ($image instanceof OOMedia && $image->isImage()) {
+			$width  = $imageWidth ?: $image->getWidth();
+			$height = $imageHeight ?: $image->getHeight();
+
+			return $image->toHtml(array('width' => $width, 'height' => $height));
+		}
+	}
 }
