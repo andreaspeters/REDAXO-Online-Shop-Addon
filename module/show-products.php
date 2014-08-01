@@ -18,7 +18,7 @@
 
 */
 <div id="productOverview">
-	<form method='get' action="<?php echo $_SERVER['PHP_SELF']; ?>">
+	<form method='get' action="show_products.php">
 <?php
 	define('DEFAULT_LIMIT',    20);
 	define('DEFAULT_CATEGORY', 1);
@@ -61,7 +61,7 @@
 	foreach( $products as  $products ) {
 		print '<div id="productItem__'.$i'">';
 		print '<div id="productName_'.$i.'">'.$product['0']['name'].'</div>';	
-		print '<div id="productThumbnail_'.$i.'">'.$product['image'].'</div>';	
+		print '<div id="productPrice_'.$i.'">'.$product['0']['price'].'</div>';	
 		print '</div>';
 		
 		$i++;
