@@ -18,30 +18,34 @@
 
 */
 <div id="productOverview">
-	<form method='get' action="show_products.php">
+	<form method='get' action="">
 <?php
 
 	$oshop = new OOOnlineShop();	
-	$param['from']  = 0;
-	$param['limit'] = 20;
-	$param['cat']   = 1;
+	
+	# default values
+	$param['from']  = htmlentities(rex_request("from","integer", 0));
+	$param['limit']  = htmlentities(rex_request("limit","integer", 20));
+	$param['cat']  = htmlentities(rex_request("cat","integer", 1));
 
+	$navButton = htmlentities(rex_request("navButton", "string", ""));
+	
 
 
 	# Process parameters
-#	if($_GET['navButton']) {
-#		switch($_GET['navButton']) {
-#			case 'Next Page':  
-#				$param['from'] += $param['limit']; 
-#			break;
-#			case 'Previous Page': 
-#				$param['from'] -= $param['limit'];
-#				if( $param['from'] < 0 ) $param['from']=0;
-#			break;
-#			default:
-#			break;
-#		}
-#	}
+	if($navButton) {
+		switch($navButton) {
+			case 'Next':  
+				$param['from'] += $param['limit']; 
+			break;
+			case 'Previous': 
+				$param['from'] -= $param['limit'];
+				if( $param['from'] < 0 ) $param['from']=0;
+			break;
+			default:
+			break;
+		}
+	}
 
 
 
@@ -53,12 +57,16 @@
 
 	# Print the result
 	print '<div id="productList">';
+	print '<div id="debug">'.$param['from'].'</div>';
+	print '<div id="debug">'.$param['limit'].'</div>';
+	print '<div id="debug">'.$param['cat'].'</div>';
+	print '<div id="debug">'.$navButton.'</div>';
 
 	$i=0;
 	foreach( $products as  $product ) {
-		print '<div id="productItem_'.$i'">';
+		print '<div id="productItem_'.$i.'">';
 		print '<div id="productName_'.$i.'">'.$product['0']['name'].'</div>';	
-		print '<div id="productPrice_'.$i.'">'.$product['0']['price'].'</div>';	
+		print '<div id="productThumbnail_'.$i.'">thumbnail</div>';	
 		print '</div>';
 		
 		$i++;
@@ -71,8 +79,8 @@
 
 
 		<div id="buttons">
-			<input type="submit" name="navButton" value="Next Page" />
-			<input type="submit" name="navButton" value="Previous Page" />
+			<input type="submit" name="navButton" value="Previous" />
+			<input type="submit" name="navButton" value="Next" />
 		</div>
 	</form>
 </div>
