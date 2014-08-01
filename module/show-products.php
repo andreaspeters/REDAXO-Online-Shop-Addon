@@ -18,7 +18,6 @@
 
 */
 <div id="productOverview">
-	<form method='get' action="">
 <?php
 
 	$oshop = new OOOnlineShop();	
@@ -30,23 +29,6 @@
 
 	$navButton = htmlentities(rex_request("navButton", "string", ""));
 	
-
-
-	# Process parameters
-	if($navButton) {
-		switch($navButton) {
-			case 'Next':  
-				$param['from'] += $param['limit']; 
-			break;
-			case 'Previous': 
-				$param['from'] -= $param['limit'];
-				if( $param['from'] < 0 ) $param['from']=0;
-			break;
-			default:
-			break;
-		}
-	}
-
 
 
 	# Get Products
@@ -74,13 +56,14 @@
 
 	print '</div>';
 
+	print '<div id="navButtons">';
+	$nextVal=$param['from']+$param['limit'];
+	$prevVal=$param['from']-$param['limit'];
+	print '<div id="prevButton"><a href="'.$_SERVER['PHP_SELF'].'?from='.$prevVal.'">Previous</a>';
+	print '<div id="nextButton"><a href="'.$_SERVER['PHP_SELF'].'?from='.$nextVal.'">Next</a>';
+	print '</div>';
+
 ?>
 
 
-
-		<div id="buttons">
-			<input type="submit" name="navButton" value="Previous" />
-			<input type="submit" name="navButton" value="Next" />
-		</div>
-	</form>
 </div>
