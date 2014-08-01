@@ -20,36 +20,33 @@
 <div id="productOverview">
 	<form method='get' action="show_products.php">
 <?php
-	define('DEFAULT_LIMIT',    20);
-	define('DEFAULT_CATEGORY', 1);
-	define('DEFAULT_FROM',     0);
 
 	$oshop = new OOOnlineShop();	
-	$param['from']  = $_GET['from']  ?:  constant('DEFAULT_FROM');
-	$param['limit'] = $_GET['limit'] ?:  constant('DEFAULT_LIMIT');
-	$param['cat']   = $_GET['cat']   ?:  constant('DEFAULT_CATEGORY');
+	$param['from']  = 0;
+	$param['limit'] = 20;
+	$param['cat']   = 1;
 
 
 
 	# Process parameters
-	if($_GET['navButton']) {
-		switch($_GET['navButton']) {
-			case 'Next Page':  
-				$param['from'] += $param['limit']; 
-			break;
-			case 'Previous Page': 
-				$param['from'] -= $param['limit'];
-				if( $param['from'] < 0 ) $param['from']=0;
-			break;
-			default:
-			break;
-		}
-	}
+#	if($_GET['navButton']) {
+#		switch($_GET['navButton']) {
+#			case 'Next Page':  
+#				$param['from'] += $param['limit']; 
+#			break;
+#			case 'Previous Page': 
+#				$param['from'] -= $param['limit'];
+#				if( $param['from'] < 0 ) $param['from']=0;
+#			break;
+#			default:
+#			break;
+#		}
+#	}
 
 
 
 	# Get Products
-	$products = $oshop.getProductsList($param);
+	$products = $oshop->getProductsList($param);
 
 
 
@@ -58,8 +55,8 @@
 	print '<div id="productList">';
 
 	$i=0;
-	foreach( $products as  $products ) {
-		print '<div id="productItem__'.$i'">';
+	foreach( $products as  $product ) {
+		print '<div id="productItem_'.$i'">';
 		print '<div id="productName_'.$i.'">'.$product['0']['name'].'</div>';	
 		print '<div id="productPrice_'.$i.'">'.$product['0']['price'].'</div>';	
 		print '</div>';
