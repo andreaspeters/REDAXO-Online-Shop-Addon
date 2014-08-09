@@ -111,13 +111,18 @@ class OOOnlineShop {
 	public function getImageByName($param) {
 		$imageName = htmlentities($param['name']);
 
-
 		// Without a ImageName, we can do nothing
 		if (!$imageName)
 			return;
-	
-		$imageWidth = htmlentities($param['width']);
-		$imageHeight = htmlentities($param['height']);
+
+		$imageWidth = "";
+		$imageHeight = "";
+		if (isset($param['width'])) {
+			$imageWidth = htmlentities($param['width']);
+		}
+		if (isset($param['height'])) {
+			$imageHeight = htmlentities($param['height']);
+		}
 
 		$image = OOMedia::getMediaByFileName($imageName);
 		if ($image instanceof OOMedia && $image->isImage()) {
