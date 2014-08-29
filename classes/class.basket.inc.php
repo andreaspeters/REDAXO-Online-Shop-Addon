@@ -18,8 +18,13 @@ class OOBasket {
 		Return:		 	-1 = Error, 0 = Good	
 	*/
     public function insertProduct($param) {
+		$count = 1;
 		$id    = htmlentities($param['id']);
-		$count = htmlentities($param['count']);
+
+
+		if (isset($param['count'])) {
+			$count = htmlentities($param['count']);
+		}
 		if (!$id) 
 			return -1;
 

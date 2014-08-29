@@ -32,6 +32,7 @@
 
 	switch($func) {
 		case "removeProductFromBasket": $oshop->basket->deleteProduct($param); break;
+		case "addProductToBasket": $oshop->basket->insertProduct($param);break;
 		case "order": $order->showOrderFormular(); break;
 	}
 
