@@ -39,11 +39,6 @@
 
 	# Print the result
 	print '<div id="productList">';
-	print '<div id="debug">'.$param['from'].'</div>';
-	print '<div id="debug">'.$param['limit'].'</div>';
-	print '<div id="debug">'.$param['cat'].'</div>';
-	print '<div id="debug">'.$navButton.'</div>';
-
 	$i=0;
 	foreach( $products as  $product ) {
 		print '<div id="productItem_'.$i.'">';
@@ -59,8 +54,14 @@
 	print '<div id="navButtons">';
 	$nextVal=$param['from']+$param['limit'];
 	$prevVal=$param['from']-$param['limit'];
-	print '<div id="prevButton"><a href="'.$_SERVER['PHP_SELF'].'?from='.$prevVal.'">Previous</a>';
-	print '<div id="nextButton"><a href="'.$_SERVER['PHP_SELF'].'?from='.$nextVal.'">Next</a>';
+	$cat=$param['cat'];
+	if($prevVal < 0) 
+		$prevVal=0;
+	else
+		print '<div id="prevButton"><a href="http://'.$_SERVER['SERVER_NAME'].'/4-0-O-Shop.html?from='.$prevVal.'&cat='.$cat.'">Previous</a></div>';
+
+	
+	print '<div id="nextButton"><a href="http://'.$_SERVER['SERVER_NAME'].'/4-0-O-Shop.html?from='.$nextVal.'&cat='.$cat.'">Next</a></div>';
 	print '</div>';
 
 ?>
