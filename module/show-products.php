@@ -42,7 +42,7 @@
 	$i=0;
 	foreach( $products as  $product ) {
 		print '<div id="productItem_'.$i.'">';
-		print '<div id="productName_'.$i.'">'.$product['name'].'</div>';	
+		print '<div id="productName_'.$i.'"><a href="http://'.$_SERVER['SERVER_NAME'].'/24-0-Product-Details.html?article_id='.$product['id'].'">'.$product['name'].'</a></div>';	
 		print '<div id="productPrice_'.$i.'">'.$product['price'].'</div>';	
 		print '<div id="productCat_'.$i.'">'.$product['rex_onlineshop_category'].'</div>';	
 		print '</div>';
