@@ -25,7 +25,7 @@
 	# default values
 	$param['from']  = htmlentities(rex_request("from","integer", 0));
 	$param['limit']  = htmlentities(rex_request("limit","integer", 20));
-	$param['cat']  = htmlentities(rex_request("cat","integer", 1));
+	$param['cat']  = htmlentities(rex_request("cat","integer", 0));
 
 	$navButton = htmlentities(rex_request("navButton", "string", ""));
 	
@@ -42,8 +42,9 @@
 	$i=0;
 	foreach( $products as  $product ) {
 		print '<div id="productItem_'.$i.'">';
-		print '<div id="productName_'.$i.'">'.$product['0']['name'].'</div>';	
-		print '<div id="productThumbnail_'.$i.'">thumbnail</div>';	
+		print '<div id="productName_'.$i.'">'.$product['name'].'</div>';	
+		print '<div id="productPrice_'.$i.'">'.$product['price'].'</div>';	
+		print '<div id="productCat_'.$i.'">'.$product['rex_onlineshop_category'].'</div>';	
 		print '</div>';
 		
 		$i++;
@@ -51,6 +52,9 @@
 
 	print '</div>';
 
+
+
+	# add navigation
 	print '<div id="navButtons">';
 	$nextVal=$param['from']+$param['limit'];
 	$prevVal=$param['from']-$param['limit'];
@@ -58,10 +62,16 @@
 	if($prevVal < 0) 
 		$prevVal=0;
 	else
-		print '<div id="prevButton"><a href="http://'.$_SERVER['SERVER_NAME'].'/4-0-O-Shop.html?from='.$prevVal.'&cat='.$cat.'">Previous</a></div>';
+		if($cat>0)
+			print '<div id="prevButton"><a href="http://'.$_SERVER['SERVER_NAME'].'/4-0-O-Shop.html?from='.$prevVal.'&cat='.$cat.'">Previous</a></div>';
+		else
+			print '<div id="prevButton"><a href="http://'.$_SERVER['SERVER_NAME'].'/4-0-O-Shop.html?from='.$prevVal.'">Previous</a></div>';
 
-	
-	print '<div id="nextButton"><a href="http://'.$_SERVER['SERVER_NAME'].'/4-0-O-Shop.html?from='.$nextVal.'&cat='.$cat.'">Next</a></div>';
+
+	if($cat>0) 	
+		print '<div id="nextButton"><a href="http://'.$_SERVER['SERVER_NAME'].'/4-0-O-Shop.html?from='.$nextVal.'&cat='.$cat.'">Next</a></div>';
+	else
+		print '<div id="nextButton"><a href="http://'.$_SERVER['SERVER_NAME'].'/4-0-O-Shop.html?from='.$nextVal.'">Next</a></div>';
 	print '</div>';
 
 ?>
