@@ -132,4 +132,67 @@ class OOOnlineShop {
 			return $image->toHtml(array('width' => $width, 'height' => $height));
 		}
 	}
+
+
+	/*
+		Function:		Set the Product Details
+		Description:	Save the detailed information of a product
+		Parameters:		$param = Array of
+								'name'						= Product Name
+								'description'				= Product Description
+								'price'						= The price before tax
+								'rex_onlineshop_category'	= The category of the product
+								'size'						= Products Size
+								'color'						= Color of the Product
+								'dimension_h'				= Height
+								'dimension_w'				= Width
+								'dimension_d'				= Deepth
+								'weight'					= Weight of the product
+								'count'						= Product count in the warehouse
+								'status'					= Product Status
+								'rex_onlineshop_tax'		= TAX Id
+								'rex_onlineshop_type'		= Type of the product (article, Coupon as example)
+								'rex_onlineshop_delivery'	= Type of delivery (digital, mail as example)
+								
+		Return:		Array of
+								'status' = "update" or "new"
+								
+	*/
+	public function setDetailOfProduct($param) {
+
+    	$date = date(DATE_RFC822);
+
+    	$sqlRef = new rex_sql();
+	    $sqlRef->setTable("rex_com_products");
+	    $sqlRef->value("name", htmlentities($param['name']));
+	    $sqlRef->value("description", htmlentities($param['description']));
+	    $sqlRef->value("price", htmlentities($param['price']));
+	    $sqlRef->value("rex_onlineshop_category", htmlentities($param['rex_onlineshop_category']));
+	    $sqlRef->value("size",htmlentities($param['size']));
+	    $sqlRef->value("color", htmlentities($param['color']));
+	    $sqlRef->value("dimension_h", htmlentities($param['dimension_h']));
+	    $sqlRef->value("dimension_w", htmlentities($param['dimension_w']));
+	    $sqlRef->value("dimension_d", htmlentities($param['dimension_d']));
+	    $sqlRef->value("weight", htmlentities($param['weight']));
+	    $sqlRef->value("count", htmlentities($param['count']));
+	    $sqlRef->value("status", htmlentities($param['status']));
+	    $sqlRef->value("update", $date);
+	    $sqlRef->value("rex_onlineshop_tax", htmlentities($param['rex_onlineshop_tax']));
+	    $sqlRef->value("rex_onlineshop_type", htmlentities($param['rex_onlineshop_type']));
+	    $sqlRef->value("rex_onlineshop_delivery", htmlentities($param['rex_onlineshop_delivery']));
+
+	    if (htmlentities($param['id'])) {
+    	    $sqlRef->where(sprintf("id = '%s'",htmlentities($param['id'])));
+	        $sqlRef->update();
+    	    $res['status'] = "update";
+	    } else {
+    	    $sqlRef->insert();
+        	$res['status'] = "new";
+	    }
+
+		return $res;
+}
+
+
+
 }

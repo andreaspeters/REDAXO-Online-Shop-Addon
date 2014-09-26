@@ -1,5 +1,6 @@
 <?php
 
+
 $func   = htmlentities(rex_request("func","string",""));
 
 date_default_timezone_set('UTC');
@@ -23,6 +24,8 @@ switch ($func) {
 	case "decBasketProduct": devBasketProduct($param);break;
 	case "deleteBasket": deleteBasket();break;
 	case "getImageByName": getImageByName($param);break;
+
+	case "setDetailOfProduct": setDetailOfProduct($param);break;
 }
 
 
@@ -49,47 +52,6 @@ function getCouponsList() {
 	$res['data'] = $oshop->getCouponsList();
 	echo json_encode($res);		
 }
-/////// DUMMY
-function setProduct($param) {
-return;
-	global $REX;
-	
-	$date = date(DATE_RFC822);
-    
-	$res['method'] = "setProduct";	
-	
-	$sqlRef = new rex_sql();
-	$sqlRef->setTable("rex_com_products");
-	$sqlRef->value("name", htmlentities($param['name']));
-	$sqlRef->value("description", htmlentities($param['description']));
-	$sqlRef->value("price", htmlentities($param['price']));
-	$sqlRef->value("rex_onlineshop_category", htmlentities($param['rex_onlineshop_category']));
-	$sqlRef->value("size",htmlentities($param['size']));
-	$sqlRef->value("color", htmlentities($param['color']));
-	$sqlRef->value("dimension_h", htmlentities($param['dimension_h']));
-	$sqlRef->value("dimension_w", htmlentities($param['dimension_w']));
-	$sqlRef->value("dimension_d", htmlentities($param['dimension_d']));
-	$sqlRef->value("weight", htmlentities($param['weight']));
-	$sqlRef->value("count", htmlentities($param['count']));
-	$sqlRef->value("status", htmlentities($param['status']));
-	$sqlRef->value("update", $date);
-	$sqlRef->value("rex_onlineshop_tax", htmlentities($param['rex_onlineshop_tax']));
-	$sqlRef->value("rex_onlineshop_type", htmlentities($param['rex_onlineshop_type']));
-	$sqlRef->value("rex_onlineshop_delivery", htmlentities($param['rex_onlineshop_delivery']));
-	
-	if (htmlentities($param['id'])) {
-		$sqlRef->where(sprintf("id = '%s'",htmlentities($param['id'])));
-		$sqlRef->update();
-		$res['status'] = "update";
-	} else {
-		$sqlRef->insert();
-		$res['status'] = "new";
-	}
-		
-	echo json_encode($res);		
-}
-
-
 
 ///// DUMMY
 function setProductSold($param) {
@@ -280,6 +242,75 @@ function getImageByName($param) {
 	$res['data'] = $oshop->getImageByName($param);
 	echo json_encode($res);		
 }
+
+/*
+	Function:		setDetailOfProduct	
+	Description:	save the detail information of a product
+	Parameters:		
+	Return:			
+*/
+function setDetailOfProduct($param) {
+	// Authorization of the user
+	if (!auth()) {
+		return;
+	}
+
+    $oshop = new OOOnlineShop();
+    $res['method'] = "saveDetailOfProduct";
+	$res['name'] = htmlentities($param['name']);
+	$res['width'] = htmlentities($param['width']);
+	$res['height'] = htmlentities($param['height']);
+	$res['data'] = $oshop->getImageByName($param);
+	$res['name'] = htmlentities($param['name']);
+	$res['description'] = htmlentities($param['description']);
+	$res['price'] = htmlentities($param['price']);
+	$res['rex_onlineshop_category'] = htmlentities($param['rex_onlineshop_category']);
+	$res['size'] = htmlentities($param['size']);
+	$res['color'] =  htmlentities($param['color']);
+	$res['dimension_h'] = htmlentities($param['dimension_h']);
+	$res['dimension_w'] = htmlentities($param['dimension_w']);
+	$res['dimension_d'] = htmlentities($param['dimension_d']);
+	$res['weight'] = htmlentities($param['weight']);
+	$res['count'] = htmlentities($param['count']);
+	$res['status'] = htmlentities($param['status']);
+	$res['update'] = $date;
+	$res['rex_onlineshop_tax'] = htmlentities($param['rex_onlineshop_tax']);
+	$res['rex_onlineshop_type'] = htmlentities($param['rex_onlineshop_type']);
+	$res['rex_onlineshop_delivery'] = htmlentities($param['rex_onlineshop_delivery']);
+
+	$res['data'] = $oshop->setDetailOfProduct($param);
+
+	echo json_encode($res);
+ 
+}
+
+/*
+	Function:		auth
+	Description:	authenticate the user on the backend
+	Parameters:		
+	Return:			0 = not authorized 
+					1 = is authorized
+*/
+function auth() {
+	global $REX;
+
+	$avAuth = new OOavEnterAuth($REX);
+
+	$login = $avAuth->checkAuth();
+
+	if (!$login) {
+		return 0;
+	}
+
+	if (!$REX['COM_USER']->getValue('login')) {
+    	return 0;
+	}
+
+	if ($login && $REX['COM_USER']->getValue('login')) {
+		return 1;
+	}
+}
+
 ?>		
 			
 	
