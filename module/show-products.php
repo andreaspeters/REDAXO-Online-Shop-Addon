@@ -1,3 +1,4 @@
+<?php
 /*
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -17,6 +18,7 @@
 	EMail:   support [at] aventer [dot] biz
 
 */
+?>
 <div id="productOverview">
 <?php
 
@@ -41,10 +43,14 @@
 	print '<div id="productList">';
 	$i=0;
 	foreach( $products as  $product ) {
+		$images = explode(",",$product['images']);
+		$param['name'] = $images[0];
+		$param['width'] = "120";
+
 		print '<div id="productItem_'.$i.'">';
-		print '<div id="productName_'.$i.'"><a href="http://'.$_SERVER['SERVER_NAME'].'/24-0-Product-Details.html?article_id='.$product['id'].'">'.$product['name'].'</a></div>';	
-		print '<div id="productPrice_'.$i.'">'.$product['price'].'</div>';	
-		print '<div id="productCat_'.$i.'">'.$product['rex_onlineshop_category'].'</div>';	
+		print '<div id="productThumbnail_'.$i.'">'.$oshop->getImageByName($param).'</div>';
+		print '<div id="productName_'.$i.'"><a href="http://'.$_SERVER['SERVER_NAME'].'/~andreas/webseite-btb/index.php?article_id=25&id='.$product['id'].'">'.$product['name'].'</a></div>';	
+		print '<div id="productPrice_'.$i.'">'.$product['price'].'###currency###</div>';	
 		print '</div>';
 		
 		$i++;
@@ -63,18 +69,19 @@
 		$prevVal=0;
 	else
 		if($cat>0)
-			print '<div id="prevButton"><a href="http://'.$_SERVER['SERVER_NAME'].'/4-0-O-Shop.html?from='.$prevVal.'&cat='.$cat.'">Previous</a></div>';
+			print '<div id="prevButton"><a href="http://'.$_SERVER['SERVER_NAME'].'/~andreas/webseite-btb/index.php?article_id=4&from='.$prevVal.'&cat='.$cat.'"><span></span></a></div>';
 		else
-			print '<div id="prevButton"><a href="http://'.$_SERVER['SERVER_NAME'].'/4-0-O-Shop.html?from='.$prevVal.'">Previous</a></div>';
+			print '<div id="prevButton"><a href="http://'.$_SERVER['SERVER_NAME'].'/~andreas/webseite-btb/index.php?article_id=4&from='.$prevVal.'"><span></span></a></div>';
 
 
 	if($cat>0) 	
-		print '<div id="nextButton"><a href="http://'.$_SERVER['SERVER_NAME'].'/4-0-O-Shop.html?from='.$nextVal.'&cat='.$cat.'">Next</a></div>';
+		print '<div id="nextButton"><a href="http://'.$_SERVER['SERVER_NAME'].'/~andreas/webseite-btb/index.php?article_id=4&from='.$nextVal.'&cat='.$cat.'"><span></span></a></div>';
 	else
-		print '<div id="nextButton"><a href="http://'.$_SERVER['SERVER_NAME'].'/4-0-O-Shop.html?from='.$nextVal.'">Next</a></div>';
+		print '<div id="nextButton"><a href="http://'.$_SERVER['SERVER_NAME'].'/~andreas/webseite-btb/index.php?article_id=4&from='.$nextVal.'"><span></span></a></div>';
 	print '</div>';
 
 ?>
 
 
 </div>
+

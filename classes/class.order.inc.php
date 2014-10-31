@@ -83,13 +83,10 @@ class OOOrder {
 			validate|email|email|###emailfailure1###
 			validate|compare_value|agb|0|###agbfailure1###
 			validate|compare_value|privacy|0|###privacyfailure1###
-			submit||####zahlungspflichtigbestellen####|no_db
+			submit||###zahlungspflichtigbestellen###|no_db
 			
 			hidden|func|order|
   
-			html||1) ###includevat###<br/><br/>
-			html||2) ###paymentvia### <br/><br/>
-			html||###valuehaveto### <br/>
 EOT;
 
 
@@ -108,6 +105,19 @@ EOT;
 		} else {
 		    // show form
 		    echo $form;
+?>
+			<div id="payfoodnote">
+				<p>
+					1) ###includevat### 
+				</p>
+				<p>
+					2) ###paymentvia### 
+				</p>
+				<p>
+					###valuehaveto### 
+				</p>
+			</div>
+<?php
 		}
 	}
 
