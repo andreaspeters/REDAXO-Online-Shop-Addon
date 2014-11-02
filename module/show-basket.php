@@ -41,6 +41,7 @@
 
 	if ($basket) {
 		$y = 0;
+		print '<div id="productItem">';
 		foreach ($basket as $i) {
 			$param['id'] = $i[0];
 
@@ -72,6 +73,7 @@
 			$y++;
 		}
 ?>
+		</div>
 		<div id="costs">
 			<div id="totalAmountNetto"><div class="title">###totalamountnetto###</div><div class="value"><?php printf("%01.2f", $totalAmountNetto) ?> ###currency###</div></div>
 			<div id="totalAmountBrutto"><div class="title">###totalamountbrutto###</div><div class="value"><?php printf("%01.2f", $totalAmountBrutto) ?> ###currency###</div></div>
