@@ -6,12 +6,12 @@ $I18N->appendFile($REX['INCLUDE_PATH'] . '/addons/onlineshop/lang');
 
 
 
-if (OOAddon::isAvailable('xform') != 1 || version_compare(OOAddon::getVersion('xform'), '4.5', '<')) {
+if (OOAddon::isAvailable('xform') != 1 || version_compare(OOAddon::getVersion('xform'), '2.8', '<')) {
 	$REX['ADDON']['install']['onlineshop'] = 0;
-	$REX['ADDON']['installmsg']['onlineshop'] = $I18N->msg('onlineshop_install_xform_version_problem', '4.5');
-} elseif (OOAddon::isAvailable('community') != 1 || version_compare(OOAddon::getVersion('community'), '4.5', '<')) {
+	$REX['ADDON']['installmsg']['onlineshop'] = $I18N->msg('onlineshop_install_xform_version_problem', '2.8');
+} elseif (OOAddon::isAvailable('community') != 1 || version_compare(OOAddon::getVersion('community'), '2.9', '<')) {
 	$REX['ADDON']['install']['onlineshop'] = 0;
-	$REX['ADDON']['installmsg']['onlineshop'] = $I18N->msg('onlineshop_install_community_version_problem', '4.5');
+	$REX['ADDON']['installmsg']['onlineshop'] = $I18N->msg('onlineshop_install_community_version_problem', '2.9');
 } else {
 	$REX['ADDON']['install']['onlineshop'] = 1;
 

@@ -23,7 +23,7 @@
 <?php
 
 	$oshop = new OOOnlineShop();
-	$orderUrl = "?article_id=23";
+	$orderUrl = "?article_id=130";
 
 	$id = rex_request("id", "string");
 
@@ -32,16 +32,20 @@
 	$product = $oshop->getDetailOfProduct($param);
 	$tax = $oshop->getTaxValue($product[0]['rex_onlineshop_tax']);
 	$price = str_replace(',','.',$product['0']['price']);
+	$description = explode("^^^^°°°°",$product[0]['description']);
+	
+
+	switch ($product['0']['rex_onlineshop_type'] == 3) {
+		case 3: $paymentTypeText = "###abo_monthly###"; break;
+		case 4: $paymentTypeText = "###free###"; break;
+		case 5: $paymentTypeText = "###onetime###"; break;
+		default: $paymentTypeText = "###onetime###"; break;
+	}
 
 		
 	// Get Brutto price
 	$brPrice = ($price / 100) * $tax + $price;
 ?>
-
-	<div id="information">
-  	  <div id="productName"><?php echo $product['0']['name']; ?></div>
-      <div id="productDescription"><?php echo $product[0]['description']; ?></div>
-	</div>
 
 	<div id="productImages">
 <?php
@@ -50,6 +54,7 @@
 		$y = 0;
 		foreach ($images as $i) {
 			$param['name'] = $i;
+                        $param['height'] = 200;
 			$url = $oshop->getImageByName($param);
 			print '<div class="productImage_'.$y.'">';
 			echo $url;
@@ -60,15 +65,24 @@
 ?>
 	</div>
 
+	<div id="information">
+  	  <div id="productName"><?php echo $product['0']['name']; ?></div>
+      <div id="productDescription"><?php echo $description[0]; ?></div>
+	</div>
+
     <div id="price">
-	  <div id="productPrice"><?php echo sprintf("%01.2f", $brPrice); ?> ###currency###</div>
-	  <div id="productTax"><?php echo $tax; ?>%</div>
+	  <div id="productPrice"><div class="label">###price###</div><div class="value"><?php echo sprintf("%01.2f", $brPrice); ?> ###currency###</div></div>
+	  <div id="productTax"><div class="label">###tax###</div><div class="value"><?php echo $tax; ?>%</div></div>
+
+	  <div id="productPaymentType"><div class="label">###payment###</div><div class="value"><?php echo $paymentTypeText ?></div></div>
+
+	  <div id="orderButton">
+	  	<a href="<?php echo $orderUrl; ?>&func=addProductToBasket&param={\"id\":<?php echo $id; ?>}">###tobasked###</a>
+	  </div>
 	</div>
 
-	<div id="orderButton">
-	  <a href="<?php echo $orderUrl; ?>&func=addProductToBasket&param={\"id\":<?php echo $id; ?>}">###tobasked###</a>
-	</div>
 
+        <div class="clear"></div>
 	
 
 </div>

@@ -64,7 +64,7 @@
 			// Show the remove an count field only if the user didn't pressed the order button
 			if ($func != "order") {
 				print '   <div id="productCount_'.$y.'"><input type="number" name="productCount_'.$y.'" min="0" value="'.$i[1].'" max="100"></div>';
-				print '   <div id="remove_'.$y.'"><a href=\''.$currentArticel.'&func=removeProductFromBasket&param={"id":'.$i[0].'}\'><span icon="removeProduct">X</span></a></div>';
+				print '   <div id="remove_'.$y.'"><a href=\''.$currentArticel.'&func=removeProductFromBasket&param={"id":'.$i[0].'}\'><span icon="removeProduct"></span></a></div>';
 			}
 			print '</div>';
 			
@@ -76,15 +76,13 @@
 			<div id="totalAmountNetto"><div class="title">###totalamountnetto###</div><div class="value"><?php printf("%01.2f", $totalAmountNetto) ?> ###currency###</div></div>
 			<div id="totalAmountBrutto"><div class="title">###totalamountbrutto###</div><div class="value"><?php printf("%01.2f", $totalAmountBrutto) ?> ###currency###</div></div>
 			<div id="totalAmountTax"><div class="title">###totalamounttax###</div><div class="value"><?php printf("%01.2f", $totalAmountTax) ?> ###currency###</div></div>
-		</div>
 		
-		<input type="hidden" name="func" value="order"/>
+			<input type="hidden" name="func" value="order"/>
 
 <?php
 		// Show the order button only before it was pressed
 		if ($func != "order") {
 ?>
-
 			<div id="buttons">
 				<input type="submit" value="###order###" />
 			</div>
@@ -95,5 +93,6 @@
 
 
 ?>
+		</div>
 	</form>
 </div>
