@@ -31,12 +31,8 @@
 
 	$navButton = htmlentities(rex_request("navButton", "string", ""));
 	
-
-
 	# Get Products
 	$products = $oshop->getProductsList($param);
-
-
 
 
 	# Print the result
@@ -47,10 +43,17 @@
 		$param['name'] = $images[0];
 		$param['width'] = "120";
 
+		// If the product have no price, then it is for free
+		if (!$product['price']) {
+			$price = "###forfree###";
+		} else {
+			$price = $product['price'].'###currency###';
+		}
+
 		print '<div id="productItem_'.$i.'">';
 		print '<div id="productThumbnail_'.$i.'">'.$oshop->getImageByName($param).'</div>';
 		print '<div id="productName_'.$i.'"><a href="http://'.$_SERVER['SERVER_NAME'].'/~andreas/webseite-btb/index.php?article_id=25&id='.$product['id'].'">'.$product['name'].'</a></div>';	
-		print '<div id="productPrice_'.$i.'">'.$product['price'].'###currency###</div>';	
+		print '<div id="productPrice_'.$i.'">'.$price.'</div>';	
 		print '</div>';
 		
 		$i++;
