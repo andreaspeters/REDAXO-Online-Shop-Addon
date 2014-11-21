@@ -52,7 +52,7 @@
 
 		print '<div id="productItem_'.$i.'">';
 		print '<div id="productThumbnail_'.$i.'">'.$oshop->getImageByName($param).'</div>';
-		print '<div id="productName_'.$i.'"><a href="http://'.$_SERVER['SERVER_NAME'].'/~andreas/webseite-btb/index.php?article_id=25&id='.$product['id'].'">'.$product['name'].'</a></div>';	
+		print '<div id="productName_'.$i.'"><a href="?article_id=25&id='.$product['id'].'">'.$product['name'].'</a></div>';	
 		print '<div id="productPrice_'.$i.'">'.$price.'</div>';	
 		print '</div>';
 		
@@ -72,15 +72,15 @@
 		$prevVal=0;
 	else
 		if($cat>0)
-			print '<div id="prevButton"><a href="http://'.$_SERVER['SERVER_NAME'].'/~andreas/webseite-btb/index.php?article_id=4&from='.$prevVal.'&cat='.$cat.'"><span></span></a></div>';
+			print '<div id="prevButton"><a href="?article_id=4&from='.$prevVal.'&cat='.$cat.'"><span></span></a></div>';
 		else
-			print '<div id="prevButton"><a href="http://'.$_SERVER['SERVER_NAME'].'/~andreas/webseite-btb/index.php?article_id=4&from='.$prevVal.'"><span></span></a></div>';
+			print '<div id="prevButton"><a href="?article_id=4&from='.$prevVal.'"><span></span></a></div>';
 
 
 	if($cat>0) 	
-		print '<div id="nextButton"><a href="http://'.$_SERVER['SERVER_NAME'].'/~andreas/webseite-btb/index.php?article_id=4&from='.$nextVal.'&cat='.$cat.'"><span></span></a></div>';
+		print '<div id="nextButton"><a href="?article_id=4&from='.$nextVal.'&cat='.$cat.'"><span></span></a></div>';
 	else
-		print '<div id="nextButton"><a href="http://'.$_SERVER['SERVER_NAME'].'/~andreas/webseite-btb/index.php?article_id=4&from='.$nextVal.'"><span></span></a></div>';
+		print '<div id="nextButton"><a href="?article_id=4&from='.$nextVal.'"><span></span></a></div>';
 	print '</div>';
 
 ?>
