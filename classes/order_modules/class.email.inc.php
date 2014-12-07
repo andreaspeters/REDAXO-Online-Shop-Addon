@@ -52,7 +52,7 @@ class OOOrderEMail {
 		Return:			none
 	*/
 	public function sendOrderToWarehouse() {
-  		$recipient="support@aventer.biz";
+  		$recipient="mailbox@andreas-peters.net";
 		$subject="Order for $login";
 		$header="From: noreply@aventer.biz\n";
 		$mail_body ="Date " . date("d.m.Y") . " " . date("H:i") . "\n\n";
