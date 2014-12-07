@@ -142,7 +142,7 @@ EOT;
 			$this->products = $basket->getBasket();
 			$this->createInvoice();
 			$this->setOrder();		
-			##$basket->deleteBasket();
+			$basket->deleteBasket();
 		} else {
 		    // show form
 		    echo $form;
