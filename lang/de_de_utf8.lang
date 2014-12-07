@@ -1,4 +1,8 @@
 # addon: logbook de_de
+price_netto = Preis (netto)
+order = Bestellung
+product_id = Product ID
+street_no = Hausnummer und Strasse
 category = Kategorie
 size = Groesse
 color = Farbe

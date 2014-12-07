@@ -1,14 +1,16 @@
-DELETE FROM `rex_xform_table` where `table_name`='rex_onlineshop_products';
-DELETE FROM `rex_xform_table` where `table_name`='rex_onlineshop_category';
-DELETE FROM `rex_xform_table` where `table_name`='rex_onlineshop_tax';
-DELETE FROM `rex_xform_table` where `table_name`='rex_onlineshop_type';
-DELETE FROM `rex_xform_table` where `table_name`='rex_onlineshop_delivery';
+DELETE FROM `rex_xform_table` where `table_name` like 'rex_onlineshop_products';
+DELETE FROM `rex_xform_table` where `table_name` like 'rex_onlineshop_category';
+DELETE FROM `rex_xform_table` where `table_name` like 'rex_onlineshop_tax';
+DELETE FROM `rex_xform_table` where `table_name` like 'rex_onlineshop_type';
+DELETE FROM `rex_xform_table` where `table_name` like 'rex_onlineshop_delivery';
+DELETE FROM `rex_xform_table` where `table_name` like 'rex_onlineshop_order';
 
 INSERT INTO `rex_xform_table` (`status`, `table_name`, `name`, `description`, `list_amount`, `prio`, `search`, `hidden`, `export`, `import`) VALUES (1, 'rex_onlineshop_products', 'Products', 'Products', 100, 100, 1, 0, 1, 1);
 INSERT INTO `rex_xform_table` (`status`, `table_name`, `name`, `description`, `list_amount`, `prio`, `search`, `hidden`, `export`, `import`) VALUES (1, 'rex_onlineshop_category', 'Category', 'Category', 100, 100, 1, 0, 1, 1);
 INSERT INTO `rex_xform_table` (`status`, `table_name`, `name`, `description`, `list_amount`, `prio`, `search`, `hidden`, `export`, `import`) VALUES (1, 'rex_onlineshop_tax', 'Tax', 'Tax', 100, 100, 1, 0, 1, 1);
 INSERT INTO `rex_xform_table` (`status`, `table_name`, `name`, `description`, `list_amount`, `prio`, `search`, `hidden`, `export`, `import`) VALUES (1, 'rex_onlineshop_type', 'Type', 'Payment Type', 100, 100, 1, 0, 1, 1);
 INSERT INTO `rex_xform_table` (`status`, `table_name`, `name`, `description`, `list_amount`, `prio`, `search`, `hidden`, `export`, `import`) VALUES (1, 'rex_onlineshop_delivery', 'Delivery', 'Delivery', 100, 100, 1, 0, 1, 1);
+INSERT INTO `rex_xform_table` (`status`, `table_name`, `name`, `description`, `list_amount`, `prio`, `search`, `hidden`, `export`, `import`) VALUES (1, 'rex_onlineshop_order', 'Order', 'Order', 100, 100, 1, 0, 1, 1);
 
 
 INSERT INTO `rex_xform_field` (`table_name`, `prio`, `type_id`, `type_name`, `name`, `f2`, `f3`, `f4`, `f5`, `f6`, `f7`, `f8`, `f9`, `list_hidden`, `search`) VALUES ('rex_onlineshop_category', 10, 'value', 'text', 'name', 'translate:category', '', '', '', '', '', '', '', 0, 1);
@@ -43,3 +45,14 @@ INSERT INTO `rex_xform_field` (`table_name`, `prio`, `type_id`, `type_name`, `na
 INSERT INTO `rex_xform_field` (`table_name`, `prio`, `type_id`, `type_name`, `name`, `f2`, `f3`, `f4`, `f5`, `f6`, `f7`, `f8`, `f9`, `list_hidden`, `search`) VALUES ('rex_onlineshop_products', 180, 'value', 'text', 'workflow', 'translate:workflow', '', '0', '', '', '', '', '', 0, 1);
 INSERT INTO `rex_xform_field` (`table_name`, `prio`, `type_id`, `type_name`, `name`, `f2`, `f3`, `f4`, `f5`, `f6`, `f7`, `f8`, `f9`, `list_hidden`, `search`) VALUES ('rex_onlineshop_products', 190, 'value', 'checkbox', 'showcount', 'translate:canbuymorethenone', '', '0', '', '', '', '', '', 1, 1);
 
+INSERT INTO `rex_xform_field` (`table_name`, `prio`, `type_id`, `type_name`, `name`, `f2`, `f3`, `f4`, `f5`, `f6`, `f7`, `f8`, `f9`, `list_hidden`, `search`) VALUES ('rex_onlineshop_order', 10, 'value', 'text', 'name', 'translate:product_name', '', '', '', '', '', '', '', 0, 1);
+INSERT INTO `rex_xform_field` (`table_name`, `prio`, `type_id`, `type_name`, `name`, `f2`, `f3`, `f4`, `f5`, `f6`, `f7`, `f8`, `f9`, `list_hidden`, `search`) VALUES ('rex_onlineshop_order', 20, 'value', 'text', 'product_id', 'translate:product_id', '', '', '', '', '', '', '', 0, 1);
+INSERT INTO `rex_xform_field` (`table_name`, `prio`, `type_id`, `type_name`, `name`, `f2`, `f3`, `f4`, `f5`, `f6`, `f7`, `f8`, `f9`, `list_hidden`, `search`) VALUES ('rex_onlineshop_order', 40, 'value', 'text', 'product_count', 'translate:count', '', '', '', '', '', '', '', 0, 1);
+INSERT INTO `rex_xform_field` (`table_name`, `prio`, `type_id`, `type_name`, `name`, `f2`, `f3`, `f4`, `f5`, `f6`, `f7`, `f8`, `f9`, `list_hidden`, `search`) VALUES ('rex_onlineshop_order', 50, 'value', 'text', 'product_price', 'translate:price_netto', '', '', '', '', '', '', '', 0, 1);
+INSERT INTO `rex_xform_field` (`table_name`, `prio`, `type_id`, `type_name`, `name`, `f2`, `f3`, `f4`, `f5`, `f6`, `f7`, `f8`, `f9`, `list_hidden`, `search`) VALUES ('rex_onlineshop_order', 60, 'value', 'text', 'customer_firstname', 'translate:firstname', '', '', '', '', '', '', '', 0, 1);
+INSERT INTO `rex_xform_field` (`table_name`, `prio`, `type_id`, `type_name`, `name`, `f2`, `f3`, `f4`, `f5`, `f6`, `f7`, `f8`, `f9`, `list_hidden`, `search`) VALUES ('rex_onlineshop_order', 70, 'value', 'text', 'customer_name', 'translate:name', '', '', '', '', '', '', '', 0, 1);
+INSERT INTO `rex_xform_field` (`table_name`, `prio`, `type_id`, `type_name`, `name`, `f2`, `f3`, `f4`, `f5`, `f6`, `f7`, `f8`, `f9`, `list_hidden`, `search`) VALUES ('rex_onlineshop_order', 80, 'value', 'text', 'customer_street', 'translate:street_no', '', '', '', '', '', '', '', 0, 1);
+INSERT INTO `rex_xform_field` (`table_name`, `prio`, `type_id`, `type_name`, `name`, `f2`, `f3`, `f4`, `f5`, `f6`, `f7`, `f8`, `f9`, `list_hidden`, `search`) VALUES ('rex_onlineshop_order', 90, 'value', 'text', 'customer_zip', 'translate:zip', '', '', '', '', '', '', '', 0, 1);
+INSERT INTO `rex_xform_field` (`table_name`, `prio`, `type_id`, `type_name`, `name`, `f2`, `f3`, `f4`, `f5`, `f6`, `f7`, `f8`, `f9`, `list_hidden`, `search`) VALUES ('rex_onlineshop_order', 100, 'value', 'text', 'customer_city', 'translate:city', '', '', '', '', '', '', '', 0, 1);
+INSERT INTO `rex_xform_field` (`table_name`, `prio`, `type_id`, `type_name`, `name`, `f2`, `f3`, `f4`, `f5`, `f6`, `f7`, `f8`, `f9`, `list_hidden`, `search`) VALUES ('rex_onlineshop_order', 110, 'value', 'text', 'customer_email', 'translate:email', '', '', '', '', '', '', '', 0, 1);
+INSERT INTO `rex_xform_field` (`table_name`, `prio`, `type_id`, `type_name`, `name`, `f2`, `f3`, `f4`, `f5`, `f6`, `f7`, `f8`, `f9`, `list_hidden`, `search`) VALUES ('rex_onlineshop_order', 120, 'value', 'text', 'date', 'translate:date', '', '0', '', '', '', '', '', 0, 1);
