@@ -219,8 +219,37 @@ class OOOnlineShop {
 	    }
 
 		return $res;
-}
+	}
 
+
+	/*
+		Function:		searchProduct
+		Description:	search in all products the given value
+		Parameters:		$param = Array of
+						'search' = Search String
+		Return:			Array of the Product List	
+	*/
+	function searchProduct($param) {
+		$res['search'] = htmlentities($param['search']);
+	
+		$param['from'] = "";
+		$param['limit'] = "";
+		$param['cat'] = "";
+		$products = $this->getProductsList($param);
+		$search = "";
+		$count = count($products);
+		$x = 0;
+
+		for ($i = 0; $i <= $count; $i++) {
+			if (stristr($products[$i]['description'], $res['search'])) {
+				$search[$x] = $products[$i];
+			}
+		}
+
+		$res['data'] = $search;
+	
+		return $res;		
+}
 
 
 }

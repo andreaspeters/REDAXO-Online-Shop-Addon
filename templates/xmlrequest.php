@@ -24,6 +24,7 @@ switch ($func) {
 	case "decBasketProduct": devBasketProduct($param);break;
 	case "deleteBasket": deleteBasket();break;
 	case "getImageByName": getImageByName($param);break;
+	case "searchProduct": searchProduct($param);break;
 
 	case "setDetailOfProduct": setDetailOfProduct($param);break;
 }
@@ -240,6 +241,39 @@ function getImageByName($param) {
 	$res['width'] = htmlentities($param['width']);
 	$res['height'] = htmlentities($param['height']);
 	$res['data'] = $oshop->getImageByName($param);
+	echo json_encode($res);		
+}
+
+
+/*
+	Function:		searchProduct
+	Description:	search in all products the given value
+	Parameters:		$param = Array of
+						'search' = Search String
+	Return:			JSON Array of the Product List	
+*/
+function searchProduct($param) {
+	$oshop = new OOOnlineShop();
+    $res['method'] = "searchProduct";
+	$res['search'] = htmlentities($param['search']);
+	
+    $products['method'] = "getProductsList";
+	$param['from'] = "";
+	$param['limit'] = "";
+	$param['cat'] = "";
+	$products = $oshop->getProductsList($param);
+	$search = "";
+	$count = count($products);
+	$x = 0;
+
+	for ($i = 0; $i <= $count; $i++) {
+		if (stristr($products[$i]['description'], $res['search'])) {
+			$search[$x] = $products[$i];
+		}
+	}
+
+	$res['data'] = $search;
+	
 	echo json_encode($res);		
 }
 
