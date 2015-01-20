@@ -1,4 +1,5 @@
-# addon: logbook de_de
+# addon: logbook de_dea
+parent_category = Verknuepfen mit 
 price_netto = Preis (netto)
 order = Bestellung
 product_id = Product ID
@@ -10,7 +11,7 @@ weight = Gewicht
 count = Anzahl
 product_name = Produkt Name
 workflow = Workflow
-paremt = Verknuepfen mit Produkt
+parent = Verknuepfen mit Produkt
 height = Hoehe
 width = Breite
 deep = Tiefe

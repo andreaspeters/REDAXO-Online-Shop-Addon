@@ -43,7 +43,7 @@ class OOOnlineShop {
 			$where = substr($where, 0, -4);
 			$where = sprintf(" where %s", $where);
 		}
-	
+
 		if (!empty($limit)) {
 			// Show only a limit count of products
 			$this->sqlRef->setQuery(sprintf("select * from %s where parent like '0' %s limit %d, %d","rex_onlineshop_products", $where, $from, $limit));
@@ -101,6 +101,19 @@ class OOOnlineShop {
 	public function getCategoryList() {
 	    $this->sqlRef->setQuery(sprintf("select * from %s","rex_onlineshop_category"));
 		return $this->sqlRef->getArray();
+	}
+
+
+	/*
+		Function:		getCategoryValue
+		Description:	Get out the name of the category id
+		Parameters:		$id = category id
+		Return:			String = Category Name
+	*/
+	public function getCategoryValue($id) {
+		$this->sqlRef->setQuery(sprintf("select * from %s where id = '%d'","rex_onlineshop_category", $id));
+		$res = $this->sqlRef->getArray();
+		return $res[0]['name'];
 	}
 
 	public function getTaxList() {
