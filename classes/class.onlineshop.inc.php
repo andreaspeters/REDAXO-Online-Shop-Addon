@@ -241,8 +241,10 @@ class OOOnlineShop {
 		$x = 0;
 
 		for ($i = 0; $i <= $count; $i++) {
-			if (stristr($products[$i]['description'], $param['search'])) {
+			$category = $this->getCategoryValue($products[$i]['rex_onlineshop_category']);
+			if (stristr($products[$i]['description'], $param['search']) || stristr($products[$i]['name'], $param['search']) || stristr($category, $param['search']) ) {
 				$search[$x] = $products[$i];
+				$x++;
 			}
 		}
 	
