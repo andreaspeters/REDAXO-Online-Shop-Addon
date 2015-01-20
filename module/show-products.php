@@ -53,8 +53,8 @@
 		if (!$price) {
 			$brprice = "###forfree###";
 		} else {
-			$brprice = ($price / 100) * $tax + $price .'###currency###';
-			$brprice = sprintf("%01.2f", $brprice);
+			$brprice = ($price / 100) * $tax + $price;
+			$brprice = sprintf("%01.2f", $brprice) . '###currency###';
 		}
 
 		print '<div id="productItem_'.$i.'">';
