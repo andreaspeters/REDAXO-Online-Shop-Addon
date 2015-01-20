@@ -43,7 +43,7 @@
 		$images = explode(",",$product['images']);
 		$param['name'] = $images[0];
 		$param['width'] = "120";
-		$category = $product['rex_online_category'];
+		$category = $oshop->getCategoryValue($product['rex_onlineshop_category']);
 
 		$tax =  $oshop->getTaxValue($product['rex_onlineshop_tax']);
 		$price = str_replace(',','.',$product['price']);
@@ -61,6 +61,7 @@
 		print '<div id="productThumbnail_'.$i.'">'.$oshop->getImageByName($param).'</div>';
 		print '<div id="productName_'.$i.'"><a href="index.php?article_id=24&id='.$product['id'].'">'.$product['name'].'</a></div>';	
 		print '<div id="productPrice_'.$i.'">'.$brprice.'</div>';	
+		print '<div id="productCategory_'.$i.'">'.$category.'</div>';	
 		print '</div>';
 		
 		$i++;
