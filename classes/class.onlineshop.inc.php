@@ -230,25 +230,23 @@ class OOOnlineShop {
 		Return:			Array of the Product List	
 	*/
 	function searchProduct($param) {
-		$res['search'] = htmlentities($param['search']);
-	
+		$param['search'] = htmlentities($param['search']);
 		$param['from'] = "";
 		$param['limit'] = "";
 		$param['cat'] = "";
+
 		$products = $this->getProductsList($param);
 		$search = "";
 		$count = count($products);
 		$x = 0;
 
 		for ($i = 0; $i <= $count; $i++) {
-			if (stristr($products[$i]['description'], $res['search'])) {
+			if (stristr($products[$i]['description'], $param['search'])) {
 				$search[$x] = $products[$i];
 			}
 		}
-
-		$res['data'] = $search;
 	
-		return $res;		
+		return $search;		
 }
 
 
