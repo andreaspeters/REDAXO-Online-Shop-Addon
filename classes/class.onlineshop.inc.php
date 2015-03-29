@@ -46,9 +46,9 @@ class OOOnlineShop {
 
 		if (!empty($limit)) {
 			// Show only a limit count of products
-			$this->sqlRef->setQuery(sprintf("select * from %s where parent like '0' %s limit %d, %d","rex_onlineshop_products", $where, $from, $limit));
+			$this->sqlRef->setQuery(sprintf("select * from %s where parent like '0' and count > 0  %s limit %d, %d","rex_onlineshop_products", $where, $from, $limit));
 		} else {
-			$this->sqlRef->setQuery(sprintf("select * from %s where parent like '0' %s","rex_onlineshop_products", $where));
+			$this->sqlRef->setQuery(sprintf("select * from %s where parent like '0' and counr > 0  %s","rex_onlineshop_products", $where));
 		}
 		return $this->sqlRef->getArray();		
 	}

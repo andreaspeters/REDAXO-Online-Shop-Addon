@@ -98,6 +98,17 @@ class OOOrder {
 			$sqlRef->setValue("date", $date);
 
 			$sqlRef->insert();
+
+	        $sqlRef = new rex_sql();
+			$sqlRef->setQuery(sprintf("select count from %s where id like %d","rex_onlineshop_products", $param['id']));
+			$count = $sqlRef->getArray();
+			$count[0]['count'] = $count[0]['count'] - $i[1];
+
+	        $sqlRef = new rex_sql();
+		    $sqlRef->setTable("rex_onlineshop_products");
+			$sqlRef->setValue("count", $count[0]['count']);
+			$sqlRef->setWhere(sprintf("id = '%s'",$param['id']));
+			$sqlRef->update();
 		}
 	}
 
