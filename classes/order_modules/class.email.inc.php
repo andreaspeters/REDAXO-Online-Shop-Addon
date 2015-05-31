@@ -21,17 +21,26 @@
 */
 
 class OOOrderEMail {
-    
+	private $customer;
+	private	$products;
+	private $oshop;
+
     public function OOOrderEMail () {
+		$this->oshop = new OOOnlineShop();
     }
 
 	/*
 		Function:		createInvoice
 		Description:	This function should create the invoice for the customer
-		Parameters:		$param = Array of all Products
+		Parameters:		$customer = Array of all Customer informations
+						$products= Array of all Products
 		Return:			Invoice ID
 	*/
-	public function createInvoice() {
+	public function createInvoice($customer, $products) {
+		$this->customer = $customer;
+		$this->products = $products;
+
+		$this->sendOrderToWarehouse();
 	}
 
 
@@ -52,18 +61,28 @@ class OOOrderEMail {
 		Return:			none
 	*/
 	public function sendOrderToWarehouse() {
-  		$recipient="support@aventer.biz";
-		$subject="Order for $login";
-		$header="From: noreply@aventer.biz\n";
-		$mail_body ="Date " . date("d.m.Y") . " " . date("H:i") . "\n\n";
-  		$mail_body.="Please finalize the invoice for the following user:\n\n";
-  		$mail_body.="Name: " . $contactName . "\n";
-  		$mail_body.="E-Mail: " . $email . "\n\n";
-  		$mail_body.="Login: ".$login."\n\n";
-  		$mail_body.="Client ID: ".$clientId."\n\n";
-  		$mail_body.="Product: ".$product['name']."\n\n";
-  		$mail_body.="Domain: ".$domain."\n\n";
+  		$recipient="info@baltic-turbo-boost.com";
+		$subject = "Bestellung fuer: " . $this->customer['firstname'] . " " . $this->customer['name'];
+		$header = "From: noreply@baltic-turbo-boost.com\n";
+		$mail_body  = "Date " . date("d.m.Y") . " " . date("H:i") . "\n\n";
+  		$mail_body .= "Please finalize the invoice for the following user:\n\n";
+  		$mail_body .= "Name: " . $this->customer['firstname'] . " " . $this->customer['name'] . "\n";
+  		$mail_body .= "E-Mail: " . $this->customer['email'] . "\n";
+		$mail_body .= "Strasse und Hausnummer: " . $this->customer['street'] . "\n";
+		$mail_body .= "Plz und Stadt: " . $this->customer['plz'] . " " . $this->customer['city'] . "\n\n";
+
   
+		foreach ($this->products as $i) {
+			$param['id'] = $i[0];
+			$detail = $this->oshop->getDetailOfProduct($param);
+
+			$mail_body .= "Product ------ ".$detail[0]['name']." ------- \n";
+			$mail_body .= "Product ID: ".$i[0]."\n";
+			$mail_body .= "Anzahl: ".$i[1]."\n";
+			$mail_body .= "\n\n";
+
+		}
+
   		mail($recipient,$subject,$mail_body,$header);
 	}
 

@@ -43,12 +43,12 @@ class OOOnlineShop {
 			$where = substr($where, 0, -4);
 			$where = sprintf(" where %s", $where);
 		}
-	
+
 		if (!empty($limit)) {
 			// Show only a limit count of products
-			$this->sqlRef->setQuery(sprintf("select * from %s where parent like '0' %s limit %d, %d","rex_onlineshop_products", $where, $from, $limit));
+			$this->sqlRef->setQuery(sprintf("select * from %s where parent like '0' and count > 0  %s limit %d, %d","rex_onlineshop_products", $where, $from, $limit));
 		} else {
-			$this->sqlRef->setQuery(sprintf("select * from %s where parent like '0' %s","rex_onlineshop_products", $where));
+			$this->sqlRef->setQuery(sprintf("select * from %s where parent like '0' and counr > 0  %s","rex_onlineshop_products", $where));
 		}
 		return $this->sqlRef->getArray();		
 	}
@@ -101,6 +101,19 @@ class OOOnlineShop {
 	public function getCategoryList() {
 	    $this->sqlRef->setQuery(sprintf("select * from %s","rex_onlineshop_category"));
 		return $this->sqlRef->getArray();
+	}
+
+
+	/*
+		Function:		getCategoryValue
+		Description:	Get out the name of the category id
+		Parameters:		$id = category id
+		Return:			String = Category Name
+	*/
+	public function getCategoryValue($id) {
+		$this->sqlRef->setQuery(sprintf("select * from %s where id = '%d'","rex_onlineshop_category", $id));
+		$res = $this->sqlRef->getArray();
+		return $res[0]['name'];
 	}
 
 	public function getTaxList() {
@@ -206,8 +219,37 @@ class OOOnlineShop {
 	    }
 
 		return $res;
-}
+	}
 
+
+	/*
+		Function:		searchProduct
+		Description:	search in all products the given value
+		Parameters:		$param = Array of
+						'search' = Search String
+		Return:			Array of the Product List	
+	*/
+	function searchProduct($param) {
+		$param['search'] = htmlentities($param['search']);
+		$param['from'] = "";
+		$param['limit'] = "";
+		$param['cat'] = "";
+
+		$products = $this->getProductsList($param);
+		$search = "";
+		$count = count($products);
+		$x = 0;
+
+		for ($i = 0; $i <= $count; $i++) {
+			$category = $this->getCategoryValue($products[$i]['rex_onlineshop_category']);
+			if (stristr($products[$i]['description'], $param['search']) || stristr($products[$i]['name'], $param['search']) || stristr($category, $param['search']) ) {
+				$search[$x] = $products[$i];
+				$x++;
+			}
+		}
+	
+		return $search;		
+}
 
 
 }

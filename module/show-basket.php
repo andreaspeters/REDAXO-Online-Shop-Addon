@@ -44,10 +44,15 @@
 		print '<div id="productItem">';
 		foreach ($basket as $i) {
 			$param['id'] = $i[0];
+			$count = $i[1];
+	
+			if (!$count) {
+				$count = 1;
+			}
 
 			$product = $oshop->getDetailOfProduct($param);
 			$tax = $oshop->getTaxValue($product[0]['rex_onlineshop_tax']);
-			$price = str_replace(',','.',$product['0']['price']);
+			$price = str_replace(',','.',$product['0']['price']) * $count;
 		
 			// Get Brutto price
 			$brPrice = ($price / 100) * $tax + $price;

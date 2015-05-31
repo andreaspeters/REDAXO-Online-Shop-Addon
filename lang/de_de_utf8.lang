@@ -1,4 +1,26 @@
-# addon: logbook de_de
+# addon: logbook de_dea
+parent_category = Verknuepfen mit 
+price_netto = Preis (netto)
+order = Bestellung
+product_id = Product ID
+street_no = Hausnummer und Strasse
+category = Kategorie
+size = Groesse
+color = Farbe
+weight = Gewicht
+count = Anzahl
+product_name = Produkt Name
+workflow = Workflow
+parent = Verknuepfen mit Produkt
+paremt = Verknuepfen mit Produkt
+height = Hoehe
+width = Breite
+deep = Tiefe
+tax = VAT
+type = Artikel Typ
+delivery = Versandart
+image = Bilder
+canbuymorethenone = Das Produkt kann von einem Kaeufer mehrfach erworben werden
 accountconfiguration = Account Konfiguration
 update = Aktualisieren
 timesheet = Zeiterfassung
