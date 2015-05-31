@@ -1,7 +1,7 @@
 <?php
 
 class OOBasket {
-	private $oshop;
+	public $oshop;
 
     public function OOBasket () {
         $basket = array();
@@ -31,6 +31,7 @@ class OOBasket {
 		}
 		if (!$id) 
 			return -1;
+		
 
 		// if product already inside, then increse the count but only if it is a multi order product
 		$pos = $this->getPosition($id);

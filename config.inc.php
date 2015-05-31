@@ -33,6 +33,7 @@ require_once $basedir.'/classes/class.onlineshop.inc.php';
 require_once $basedir.'/classes/class.basket.inc.php';
 require_once $basedir.'/classes/class.order.inc.php';
 require_once $basedir.'/classes/order_modules/class.email.inc.php';
+require_once $basedir.'/classes/workflow/class.owncloud5.inc.php';
 
 if ($REX['REDAXO'] && $REX['USER']) {
 

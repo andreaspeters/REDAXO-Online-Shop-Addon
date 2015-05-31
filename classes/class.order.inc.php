@@ -24,10 +24,12 @@ class OOOrder {
 	private $order;
 	private $customer, $products;
 	private $oshop;
+	private $basket;
     
     public function OOOrder() {
 		$this->order = new OOOrderEmail();		
 		$this->oshop = new OOOnlineShop();
+		$this->basket = new OOBasket();
     }
 
 
@@ -113,6 +115,16 @@ class OOOrder {
 	}
 
 	public function showOrderFormular() {
+		// For the different Products, maybe we need special order items
+	 	$basket = $this->basket->getBasket();
+		$formular = "";
+		foreach ($basket as $i) {
+			$param['id'] = $i[0];
+			$product = $this->oshop->getDetailOfProduct($param);
+			$wfname = "OOWorkflow_".$product[0]['workflow'];
+			eval("\$workflow = new \$wfname;");
+			$formular .= $workflow->getOrderFormular();
+		}
 		$xform = new rex_xform;
 		$form_data = <<<EOT
 			text|firstname| ###firstname###:*|
@@ -122,6 +134,8 @@ class OOOrder {
 			text|city| ###city###:*|
 			text|email| ###email###:*|
 			radio|payment| ###payment###:*| ###invoice###²|[no_db]|
+
+			$formular
 
 			checkbox|agb| ###acceptagb###|0|0|no_db
 			checkbox|privacy| ###acceptprivacy###|0|0|no_db
