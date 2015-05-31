@@ -1,9 +1,12 @@
 <?php
 
 class OOBasket {
-    
+	private $oshop;
+
     public function OOBasket () {
         $basket = array();
+		$this->oshop = new OOOnlineShop();
+
         if(!isset($_SESSION['basket'])) {
             $_SESSION['basket']=$basket;
         } 
@@ -20,6 +23,7 @@ class OOBasket {
     public function insertProduct($param) {
 		$count = 1;
 		$id    = htmlentities($param['id']);
+		$detail = $this->oshop->getDetailOfProduct($param);
 
 
 		if (isset($param['count'])) {
@@ -28,10 +32,12 @@ class OOBasket {
 		if (!$id) 
 			return -1;
 
-		// if product already inside, then increse the count
+		// if product already inside, then increse the count but only if it is a multi order product
 		$pos = $this->getPosition($id);
 		if ($pos > -1) {
-			$this->incProduct($param);
+			if ($detail[0]['showcount']) {
+				$this->incProduct($param);
+			}
 		} else {
         	$product = array($id, $count);
 	        $basket = $_SESSION['basket'];

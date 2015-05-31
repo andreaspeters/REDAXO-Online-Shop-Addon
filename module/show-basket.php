@@ -25,6 +25,7 @@
 
 	$oshop = new OOOnlineShop();
 	$order = new OOOrder();
+	$obasket = new OOBasket();
 
 	$currentArticel = rex_getUrl($this->getValue("article_id"));
 	$func = htmlentities(rex_request("func","string",""));
@@ -32,13 +33,12 @@
 	$param = json_decode(stripcslashes(rex_request("param", "string")), true);
 
 	switch($func) {
-		case "removeProductFromBasket": $oshop->basket->deleteProduct($param); break;
-		case "addProductToBasket": $oshop->basket->insertProduct($param);break;
+		case "removeProductFromBasket": $obasket->deleteProduct($param); break;
+		case "addProductToBasket": $obasket->insertProduct($param);break;
 		case "order": $order->showOrderFormular(); break;
 	}
-
-
-	$basket = $oshop->basket->getBasket();
+    
+    $basket = $obasket->getBasket();
 
 	if ($basket) {
 		$y = 0;
@@ -69,9 +69,11 @@
 			print '   <div id="productPrice_'.$y.'">'.sprintf("%01.2f", $brPrice).' ###currency###</div>';
 			print '   <div id="productTax_'.$y.'">'.$tax.'%</div>';
 
-			// Show the remove an count field only if the user didn't pressed the order button
+			// Show the remove an count field only if the user didn't pressed the order button and only if it is a multi order product
 			if ($func != "order") {
-				print '   <div id="productCount_'.$y.'"><input type="number" name="productCount_'.$y.'" min="0" value="'.$i[1].'" max="100"></div>';
+				if ($product[0]['showcount']) {
+					print '   <div id="productCount_'.$y.'"><input type="number" name="productCount_'.$y.'" min="0" value="'.$i[1].'" max="100"></div>';
+				}
 				print '   <div id="remove_'.$y.'"><a href=\''.$currentArticel.'&func=removeProductFromBasket&param={"id":'.$i[0].'}\'><div icon="removeProduct"></div></a></div>';
 			}
 			print '</div>';

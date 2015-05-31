@@ -9,14 +9,12 @@ class OOOnlineShop {
 	protected $REX, $I18N, $api;
 	public $rexUser, $rexGroups;
 	public $sqlRef;
-	public $basket;
 
 	public function OOOnlineShop () {
 		global $REX;
 		$this->REX = $REX;
 
         $this->sqlRef = new rex_sql();
-		$this->basket = new OOBasket();
 	}
 
 	/*

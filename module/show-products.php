@@ -48,7 +48,7 @@
 		$images = explode(",",$product['images']);
 		$param['name'] = $images[0];
 		$param['width'] = "120";
-		$description = explode("^^^^°°°°",$product['description']);
+		$description = explode("^^^^°°°°",$product['description_short']);
 
 		$tax =  $oshop->getTaxValue($product['rex_onlineshop_tax']);
 		$price = str_replace(',','.',$product['price']);
