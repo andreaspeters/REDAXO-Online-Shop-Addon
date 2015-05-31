@@ -28,6 +28,7 @@
 
 	$currentArticel = rex_getUrl($this->getValue("article_id"));
 	$func = htmlentities(rex_request("func","string",""));
+
 	$param = json_decode(stripcslashes(rex_request("param", "string")), true);
 
 	switch($func) {
@@ -44,11 +45,12 @@
 		print '<div id="productItem">';
 		foreach ($basket as $i) {
 			$param['id'] = $i[0];
-			$count = $i[1];
-	
-			if (!$count) {
-				$count = 1;
-			}
+            $count = $i[1];
+
+            if (!$count) {
+                $count = 1;
+            }
+
 
 			$product = $oshop->getDetailOfProduct($param);
 			$tax = $oshop->getTaxValue($product[0]['rex_onlineshop_tax']);
@@ -70,7 +72,7 @@
 			// Show the remove an count field only if the user didn't pressed the order button
 			if ($func != "order") {
 				print '   <div id="productCount_'.$y.'"><input type="number" name="productCount_'.$y.'" min="0" value="'.$i[1].'" max="100"></div>';
-				print '   <div id="remove_'.$y.'"><a href=\''.$currentArticel.'&func=removeProductFromBasket&param={"id":'.$i[0].'}\'><span icon="removeProduct"></span></a></div>';
+				print '   <div id="remove_'.$y.'"><a href=\''.$currentArticel.'&func=removeProductFromBasket&param={"id":'.$i[0].'}\'><div icon="removeProduct"></div></a></div>';
 			}
 			print '</div>';
 			

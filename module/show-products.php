@@ -17,6 +17,10 @@
 	www:	 https://www.aventer.biz
 	EMail:   support [at] aventer [dot] biz
 
+	Eingabe:
+
+    Kategorie: <input type="text" size="50" name="VALUE[1]" value="REX_VALUE[1]" />
+
 */
 ?>
 <div id="productOverview">
@@ -29,7 +33,7 @@
 	# default values
 	$param['from']  = htmlentities(rex_request("from","integer", 0));
 	$param['limit']  = htmlentities(rex_request("limit","integer", 20));
-	$param['cat']  = htmlentities(rex_request("cat","integer", 0));
+	$param['cat']  = "REX_VALUE[1]";
 
 	$navButton = htmlentities(rex_request("navButton", "string", ""));
 	

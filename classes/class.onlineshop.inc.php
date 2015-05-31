@@ -36,20 +36,21 @@ class OOOnlineShop {
 
 		// Category filter
 		if (!empty($category)) {
-			$where .= sprintf("%s = '%d' AND ", "rex_onlineshop_category", $category);
+			$where .= sprintf("AND %s = '%d' ", "rex_onlineshop_category", $category);
 		}
 		if (!empty($where)) {
 			// remove the last "AND " string and add a " where "
-			$where = substr($where, 0, -4);
-			$where = sprintf(" where %s", $where);
+//			$where = substr($where, 0, -4);
+//			$where = sprintf(" where %s", $where);
 		}
 
 		if (!empty($limit)) {
 			// Show only a limit count of products
-			$this->sqlRef->setQuery(sprintf("select * from %s where parent like '0' and count > 0  %s limit %d, %d","rex_onlineshop_products", $where, $from, $limit));
+			$this->sqlRef->setQuery(sprintf("select * from %s where parent = 0 %s limit %d, %d","rex_onlineshop_products", $where, $from, $limit));
 		} else {
-			$this->sqlRef->setQuery(sprintf("select * from %s where parent like '0' and counr > 0  %s","rex_onlineshop_products", $where));
+			$this->sqlRef->setQuery(sprintf("select * from %s where parent = 0 %s","rex_onlineshop_products", $where));
 		}
+ 
 		return $this->sqlRef->getArray();		
 	}
 
@@ -63,7 +64,7 @@ class OOOnlineShop {
 	public function getChildsOfProduct($param) {
 		$id = htmlentities($param['id']);
 
-		$this->sqlRef->setQuery(sprintf("select * from %s where parent like %d","rex_onlineshop_products", $id));
+		$this->sqlRef->setQuery(sprintf("select * from %s where parent like %d or id = %d","rex_onlineshop_products", $id, $id));
 
 		return $this->sqlRef->getArray();		
 	}
@@ -253,3 +254,4 @@ class OOOnlineShop {
 
 
 }
+
