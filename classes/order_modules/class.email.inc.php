@@ -61,9 +61,9 @@ class OOOrderEMail {
 		Return:			none
 	*/
 	public function sendOrderToWarehouse() {
-  		$recipient="info@baltic-turbo-boost.com";
+  		$recipient="info@";
 		$subject = "Bestellung fuer: " . $this->customer['firstname'] . " " . $this->customer['name'];
-		$header = "From: noreply@baltic-turbo-boost.com\n";
+		$header = "From: noreply@\n";
 		$mail_body  = "Date " . date("d.m.Y") . " " . date("H:i") . "\n\n";
   		$mail_body .= "Please finalize the invoice for the following user:\n\n";
   		$mail_body .= "Name: " . $this->customer['firstname'] . " " . $this->customer['name'] . "\n";
