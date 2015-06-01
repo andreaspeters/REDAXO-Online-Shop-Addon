@@ -4,6 +4,7 @@ class OOBasket {
 	public $oshop;
 
     public function OOBasket () {
+	 	global $REX, $I18N;
         $basket = array();
 		$this->oshop = new OOOnlineShop();
 

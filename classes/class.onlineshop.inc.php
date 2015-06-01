@@ -9,9 +9,11 @@ class OOOnlineShop {
 	protected $REX, $I18N, $api;
 	public $rexUser, $rexGroups;
 	public $sqlRef;
+	private $lang;
 
 	public function OOOnlineShop () {
-		global $REX;
+	 	global $REX, $I18N;
+		$this->lang = $I18N;
 		$this->REX = $REX;
 
         $this->sqlRef = new rex_sql();
@@ -248,7 +250,12 @@ class OOOnlineShop {
 		}
 	
 		return $search;		
-}
+	}
+
+	public function langReplace($string) {
+    	return preg_replace("/###([a-z]\w+)###/e", '$this->lang->msg(htmlentities($1))', $string);
+	}
+
 
 
 }

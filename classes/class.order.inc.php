@@ -27,6 +27,7 @@ class OOOrder {
 	private $basket;
     
     public function OOOrder() {
+
 		$this->order = new OOOrderEmail();		
 		$this->oshop = new OOOnlineShop();
 		$this->basket = new OOBasket();
@@ -126,6 +127,7 @@ class OOOrder {
 			$formular .= $workflow->getOrderFormular();
 		}
 		$xform = new rex_xform;
+
 		$form_data = <<<EOT
 			text|firstname| ###firstname###:*|
 			text|name| ###name###:*|
@@ -154,7 +156,7 @@ class OOOrder {
 EOT;
 
 
-		$form_data = trim(str_replace("<br/>","",rex_xform::unhtmlentities($form_data)));
+		$form_data = trim(str_replace("<br/>","",rex_xform::unhtmlentities($this->oshop->langReplace($form_data))));
 		$xform->setFormData($form_data);
 
 		$form = $xform->getForm();
@@ -170,8 +172,7 @@ EOT;
 			$basket->deleteBasket();
 		} else {
 		    // show form
-		    echo $form;
-?>
+		   $form .= <<<EOT
 			<div id="payfoodnote">
 				<p>
 					1) ###includevat### 
@@ -183,7 +184,9 @@ EOT;
 					###valuehaveto### 
 				</p>
 			</div>
-<?php
+EOT;
+
+		print $this->oshop->langReplace($form);
 		}
 	}
 

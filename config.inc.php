@@ -26,7 +26,7 @@ $REX['PERM'][] = 'onlineshop[]';
 $basedir = dirname(__FILE__);
 
 if (isset($I18N) && is_object($I18N))
-  $I18N->appendFile($basedir.'/lang');
+  $I18N->appendFile($basedir.'/lang/');
 
 
 require_once $basedir.'/classes/class.onlineshop.inc.php';
